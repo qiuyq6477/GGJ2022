@@ -32,6 +32,7 @@ public class ChangeVisibleOnLOSEvent : MonoBehaviour
 
         if (_spriteRenderer)
         {
+            _spriteRenderer.material = Resources.Load<Material>("Sprite-Unlit-Default");
             _spriteRenderer.enabled = true;
         }
 
@@ -50,6 +51,7 @@ public class ChangeVisibleOnLOSEvent : MonoBehaviour
 
         if (_spriteRenderer)
         {
+            _spriteRenderer.material = Resources.Load<Material>("Sprite-Lit-Default");
             _spriteRenderer.enabled = false;
         }
 
