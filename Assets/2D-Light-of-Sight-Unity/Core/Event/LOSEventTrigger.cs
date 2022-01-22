@@ -10,8 +10,7 @@ namespace LOS.Event {
 		private Transform _trans;
 
 		public Vector3 position {get {return _trans.position;}}
-
-
+		
 		// Events & Trigger Info
 		public delegate void HandleSourceDelegate (LOSEventSource source);
 		public delegate void HandleNoSourceDelegate ();

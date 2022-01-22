@@ -12,8 +12,8 @@ namespace LOS.Event {
 
 
 		// Processes
-		private List<LOSEventSource> _sources;
-		private List<LOSEventTrigger> _triggers;
+		private List<LOSEventSource> _sources = new List<LOSEventSource>();
+		private List<LOSEventTrigger> _triggers = new List<LOSEventTrigger>();
 
 
 		// TODO: Split workload to serveral frames
@@ -49,9 +49,6 @@ namespace LOS.Event {
 
 		void Awake () {
 			_instance = this;
-
-			_sources = new List<LOSEventSource>();
-			_triggers = new List<LOSEventTrigger>();
 		}
 
 		void OnEnable () {
