@@ -57,7 +57,6 @@ namespace LOS.Event {
 				if (!SHelper.CheckGameObjectInLayer(trigger.gameObject, triggerLayers)) continue;
 
 				bool triggered = false;
-
 				Vector3 direction = trigger.position - _trans.position;
 				float degree = SMath.VectorToDegree(direction);
 				if (lightSource != null) {
@@ -66,53 +65,29 @@ namespace LOS.Event {
 						continue;
 					}
 				}
-
-				if (direction.sqrMagnitude <= distance * distance) {	// Within distance
-					if (triggeredTriggers.Contains(trigger)) continue;		// May be added previously
-
-					LayerMask mask = 1 << trigger.gameObject.layer | obstacleLayers;
-
-					Vector2 pos = new Vector2(_trans.position.x, _trans.position.y);
-					Vector2 dir = new Vector2(direction.x, direction.y);
-					RaycastHit2D[] hit2D = Physics2D.CircleCastAll(pos, distance, dir, distance, mask);
-					for (int i = 0; i < hit2D.Length; i++)
-					{
-						GameObject hitGo = hit2D[i].collider.gameObject;
-						if (hitGo == trigger.gameObject) {
-							triggered = true;
-						}
-						else if (hitGo.layer == trigger.gameObject.layer) {
-							LOSEventTrigger triggerToAdd = hitGo.GetComponentInChildren<LOSEventTrigger>();
-							if (triggerToAdd == null) {
-								triggerToAdd = hitGo.GetComponentInParent<LOSEventTrigger>();
-							}
-							triggeredTriggers.Add(triggerToAdd);
-						}
-					}
-					
-					if (Physics.Raycast(_trans.position, direction, out hit, distance, mask)) {//
-						GameObject hitGo = hit.collider.gameObject;
-
-						if (hitGo == trigger.gameObject) {
-							triggered = true;
-						}
-						else if (hitGo.layer == trigger.gameObject.layer) {
-							LOSEventTrigger triggerToAdd = hitGo.GetComponentInChildren<LOSEventTrigger>();
-							if (triggerToAdd == null) {
-								triggerToAdd = hitGo.GetComponentInParent<LOSEventTrigger>();
-							}
-							triggeredTriggers.Add(triggerToAdd);
-						}
+				
+				var size = trigger.gameObject.GetComponent<BoxCollider2D>().size;
+				var pos_list = new List<Vector3>()
+				{
+					new Vector3(trigger.position.x - size.x / 2, trigger.position.y + size.y / 2, trigger.position.z),
+					new Vector3(trigger.position.x - size.x / 2, trigger.position.y - size.y / 2, trigger.position.z),
+					new Vector3(trigger.position.x + size.x / 2, trigger.position.y + size.y / 2, trigger.position.z),
+					new Vector3(trigger.position.x + size.x / 2, trigger.position.y / size.y / 2, trigger.position.z),
+				};
+				for (int i = 0; i < pos_list.Count; i++)
+				{
+					direction = pos_list[i] - _trans.position;
+					if (direction.sqrMagnitude <= distance * distance) {	// Within distance
+						// if (triggeredTriggers.Contains(trigger)) continue;		// May be added previously
+						triggered = true;
 					}
 				}
-
 				if (triggered) {
 					triggeredTriggers.Add(trigger);
 				}
 				else {
 					notTriggeredTriggers.Add(trigger);
 				}
-
 			}
 
 			List<LOSEventTrigger> newTriggers = new List<LOSEventTrigger>();
