@@ -66,47 +66,15 @@ namespace LOS.Event {
 				// 		continue;
 				// 	}
 				// }
-				var bounds = trigger.GetComponent<BoxCollider2D>().bounds;
-				// if (direction.sqrMagnitude <= distance * distance) {	// Within distance
-				if(bounds.SqrDistance(_trans.position)<= distance * distance){
-					triggered = true;
-					// if (triggeredTriggers.Contains(trigger)) continue;		// May be added previously
-					//
-					// LayerMask mask = 1 << trigger.gameObject.layer | obstacleLayers;
-					//
-					// Vector2 pos = new Vector2(_trans.position.x, _trans.position.y);
-					// Vector2 dir = new Vector2(direction.x, direction.y);
-					// RaycastHit2D[] hit2D = Physics2D.CircleCastAll(pos, distance, dir, distance, mask);
-					// for (int i = 0; i < hit2D.Length; i++)
-					// {
-					// 	GameObject hitGo = hit2D[i].collider.gameObject;
-					// 	if (hitGo == trigger.gameObject) {
-					// 		triggered = true;
-					// 	}
-					// 	else if (hitGo.layer == trigger.gameObject.layer) {
-					// 		LOSEventTrigger triggerToAdd = hitGo.GetComponentInChildren<LOSEventTrigger>();
-					// 		if (triggerToAdd == null) {
-					// 			triggerToAdd = hitGo.GetComponentInParent<LOSEventTrigger>();
-					// 		}
-					// 		triggeredTriggers.Add(triggerToAdd);
-					// 	}
-					// }
-					//
-					// if (Physics.Raycast(_trans.position, direction, out hit, distance, mask)) {//
-					// 	GameObject hitGo = hit.collider.gameObject;
-					//
-					// 	if (hitGo == trigger.gameObject) {
-					// 		triggered = true;
-					// 	}
-					// 	else if (hitGo.layer == trigger.gameObject.layer) {
-					// 		LOSEventTrigger triggerToAdd = hitGo.GetComponentInChildren<LOSEventTrigger>();
-					// 		if (triggerToAdd == null) {
-					// 			triggerToAdd = hitGo.GetComponentInParent<LOSEventTrigger>();
-					// 		}
-					// 		triggeredTriggers.Add(triggerToAdd);
-					// 	}
-					// }
+				var colliders = trigger.GetComponents<Collider2D>();
+				foreach (var c in colliders)
+				{
+					var bounds = c.bounds;
+					if(bounds.SqrDistance(_trans.position)<= distance * distance){
+						triggered = true;
+					}
 				}
+				// if (direction.sqrMagnitude <= distance * distance) {	// Within distance
 
 				if (triggered) {
 					triggeredTriggers.Add(trigger);

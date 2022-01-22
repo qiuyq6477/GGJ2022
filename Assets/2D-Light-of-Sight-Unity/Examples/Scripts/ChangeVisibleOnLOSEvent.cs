@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class ChangeVisibleOnLOSEvent : MonoBehaviour
 {
-    private SpriteRenderer _spriteRenderer;
+    private SpriteRenderer[] _spriteRenderers;
     private Rigidbody2D _rigidbody2D;
-    private BoxCollider2D _boxCollider2D;
+    private BoxCollider2D[] _boxCollider2Ds;
     private void Awake()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
-        _boxCollider2D = GetComponent<BoxCollider2D>();
+        _spriteRenderers = GetComponentsInChildren<SpriteRenderer>();
+        _boxCollider2Ds = GetComponentsInChildren<BoxCollider2D>();
         _rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
@@ -30,15 +30,15 @@ public class ChangeVisibleOnLOSEvent : MonoBehaviour
             _rigidbody2D.bodyType = RigidbodyType2D.Dynamic;
         }
 
-        if (_spriteRenderer)
+        foreach (var spriteRenderer in _spriteRenderers)
         {
-            _spriteRenderer.material = Resources.Load<Material>("Sprite-Unlit-Default");
-            _spriteRenderer.enabled = true;
+            spriteRenderer.material = Resources.Load<Material>("Sprite-Unlit-Default");
+            spriteRenderer.enabled = true;
         }
 
-        if (_boxCollider2D)
+        foreach (var boxCollider in _boxCollider2Ds)
         {
-            _boxCollider2D.enabled = true;
+            boxCollider.enabled = true;
         }
     }
 
@@ -49,15 +49,14 @@ public class ChangeVisibleOnLOSEvent : MonoBehaviour
             _rigidbody2D.bodyType = RigidbodyType2D.Static;
         }
 
-        if (_spriteRenderer)
+        foreach (var spriteRenderer in _spriteRenderers)
         {
-            _spriteRenderer.material = Resources.Load<Material>("Sprite-Lit-Default");
-            _spriteRenderer.enabled = false;
+            spriteRenderer.material = Resources.Load<Material>("Sprite-Lit-Default");
+            spriteRenderer.enabled = false;
         }
-
-        if (_boxCollider2D)
+        foreach (var boxCollider in _boxCollider2Ds)
         {
-            _boxCollider2D.enabled = false;
+            boxCollider.enabled = false;
         }
     }
 }
