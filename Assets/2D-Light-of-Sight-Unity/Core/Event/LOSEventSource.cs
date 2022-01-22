@@ -67,13 +67,31 @@ namespace LOS.Event {
 				}
 				
 				var size = trigger.gameObject.GetComponent<BoxCollider2D>().size;
-				var pos_list = new List<Vector3>()
+				List<Vector3> pos_list = null;
+				if(trigger.transform.eulerAngles.z == 0){ 
+					pos_list = new List<Vector3>()
+					{
+						new Vector3(trigger.position.x - size.x, trigger.position.y + size.y, trigger.position.z),
+						new Vector3(trigger.position.x - size.x, trigger.position.y - size.y, trigger.position.z),
+						new Vector3(trigger.position.x + size.x, trigger.position.y + size.y, trigger.position.z),
+						new Vector3(trigger.position.x + size.x, trigger.position.y - size.y, trigger.position.z),
+						new Vector3(trigger.position.x, trigger.position.y - size.y, trigger.position.z),
+						new Vector3(trigger.position.x, trigger.position.y + size.y, trigger.position.z),
+					};
+				}
+				else
 				{
-					new Vector3(trigger.position.x - size.x / 2, trigger.position.y + size.y / 2, trigger.position.z),
-					new Vector3(trigger.position.x - size.x / 2, trigger.position.y - size.y / 2, trigger.position.z),
-					new Vector3(trigger.position.x + size.x / 2, trigger.position.y + size.y / 2, trigger.position.z),
-					new Vector3(trigger.position.x + size.x / 2, trigger.position.y / size.y / 2, trigger.position.z),
-				};
+					pos_list = new List<Vector3>()
+					{
+						new Vector3(trigger.position.x - size.y, trigger.position.y + size.x, trigger.position.z),
+						new Vector3(trigger.position.x - size.y, trigger.position.y - size.x, trigger.position.z),
+						new Vector3(trigger.position.x + size.y, trigger.position.y + size.x, trigger.position.z),
+						new Vector3(trigger.position.x + size.y, trigger.position.y - size.x, trigger.position.z),
+						new Vector3(trigger.position.x, trigger.position.y - size.x, trigger.position.z),
+						new Vector3(trigger.position.x, trigger.position.y + size.x, trigger.position.z),
+						trigger.position,
+					};
+				}
 				for (int i = 0; i < pos_list.Count; i++)
 				{
 					direction = pos_list[i] - _trans.position;

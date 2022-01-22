@@ -13,13 +13,9 @@ public class AnimStateJumpSolo : AnimStateDefault
 
     public override bool HandleNewAction(AgentAction action)
     {
-        if (Owner.BlackBoard.OnGround)
+        if (action.Type == EnmLSActionType.CLIMB)
         {
-            if (action.Type == EnmLSActionType.MOVE ||
-                action.Type == EnmLSActionType.IDLE)
-            {
-                return false;
-            }
+            return false;
         }
 
         return true;
@@ -28,7 +24,7 @@ public class AnimStateJumpSolo : AnimStateDefault
     public override void OnActivate(AgentAction action)
     {
         base.OnActivate(action);
-        Owner.Rigidbody.velocity = new Vector2(Owner.Rigidbody.velocity.x, 6);
+        Owner.Rigidbody.velocity = new Vector2(Owner.Rigidbody.velocity.x, GetVal(0));
         Debug.Log("jump Enter");
     }
 
@@ -38,16 +34,15 @@ public class AnimStateJumpSolo : AnimStateDefault
     /// </summary>
     protected override void FixedUpdate()
     {
-        Debug.Log("move update");
         if (Math.Abs(Owner.BlackBoard.InputHorizontal) > 0)
         {
             transform.position += Vector3.right * Owner.BlackBoard.InputHorizontal * Time.deltaTime;
         }
 
         Owner.Rigidbody.velocity =
-            new Vector2(Owner.Rigidbody.velocity.x, Mathf.Clamp(Owner.Rigidbody.velocity.y, -6f, 6f));
+            new Vector2(Owner.Rigidbody.velocity.x, Mathf.Clamp(Owner.Rigidbody.velocity.y, -13f, 13f));
 
-        if (Owner.BlackBoard.OnGround)
+        if (Owner.BlackBoard.OnGround && Owner.Rigidbody.velocity.y <= 0)
         {
             SetFinished(true);
         }
@@ -56,7 +51,7 @@ public class AnimStateJumpSolo : AnimStateDefault
 
     public override void OnDeactivate()
     {
-        Debug.Log("move exit");
+        Debug.Log("jump Exit");
         base.OnDeactivate();
     }
 }

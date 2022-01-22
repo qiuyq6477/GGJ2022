@@ -19,7 +19,8 @@ MonoBehaviour:
   PullMotionFactor: 0.1
   MaxLostControlTime: 8
   Confs:
-  - CommonConfs: []
+  - name: 
+    CommonConfs: []
     CurveConfs: []
     RigConf: []
     ChestJointConf:
@@ -57,7 +58,8 @@ MonoBehaviour:
       maxPositionDifferenceForVelocitySyncing: 10
       __setVelocityAndPosition: 0
       __dontSyncPosition: 0
-  - CommonConfs: []
+  - name: 
+    CommonConfs: []
     CurveConfs: []
     RigConf: []
     ChestJointConf:
@@ -95,7 +97,51 @@ MonoBehaviour:
       maxPositionDifferenceForVelocitySyncing: 10
       __setVelocityAndPosition: 0
       __dontSyncPosition: 0
-  - CommonConfs: []
+  - name: 
+    CommonConfs:
+    - key: "\u8DF3\u8DC3\u901F\u5EA6"
+      val: 8.56
+    CurveConfs: []
+    RigConf: []
+    ChestJointConf:
+      isAdden: 0
+      positionSpring: 0
+      positionDamper: 0
+      smoothTime: 0
+      isEnable: 1
+    FrictionConf:
+      isAdden: 0
+      dynamicFriction: 0.3
+      staticFriction: 0.3
+      bounciness: 0
+      frictionCombine: 0
+      bounceCombine: 0
+      isEnable: 1
+    SyncConf:
+      isAdden: 0
+      interpolationBackTime: 0.1
+      sendPositionThreshold: 0.1
+      sendRotationThreshold: 3
+      sendVelocityThreshold: 0
+      sendAngularVelocityThreshold: 0
+      receivedPositionThreshold: 0
+      receivedRotationThreshold: 0
+      snapPositionThreshold: 0
+      snapRotationThreshold: 0
+      positionLerpSpeed: 0.85
+      rotationLerpSpeed: 0.85
+      timeCorrectionSpeed: 0.1
+      snapTimeThreshold: 3
+      isSmoothingAuthorityChanges: 0
+      sendRate: 17
+      setVelocityInsteadOfPositionOnNonOwners: 1
+      maxPositionDifferenceForVelocitySyncing: 10
+      __setVelocityAndPosition: 0
+      __dontSyncPosition: 0
+  - name: 
+    CommonConfs:
+    - key: "\u8DF3\u8DC3\u901F\u5EA6"
+      val: 4
     CurveConfs: []
     RigConf: []
     ChestJointConf:

@@ -5,6 +5,7 @@ namespace FSM
         IDLE,
         MOVE,
         JUMP,
+        CLIMB,
         COUNT
     }
 }

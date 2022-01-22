@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using FSM;
 using UnityEngine;
@@ -6,6 +7,11 @@ using UnityEngine;
 public class inpuas : MonoBehaviour
 {
     private Agent agent;
+
+    //跳跃临时处理
+    private int recordJumpFrame;
+
+    private bool isRecordJump;
 
     // Start is called before the first frame update
     void Start()
@@ -26,8 +32,33 @@ public class inpuas : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.K))
         {
-            var a = AgentActionFactory.Create(EnmLSActionType.JUMP);
+            isRecordJump = true;
+            recordJumpFrame = 5;
+        }
+
+        if (agent.BlackBoard.OnLadder && Input.GetKeyDown(KeyCode.W))
+        {
+            var a = AgentActionFactory.Create(EnmLSActionType.CLIMB);
             agent.AddAction(a);
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        if (isRecordJump)
+        {
+            recordJumpFrame--;
+            if (agent.BlackBoard.OnGround && agent.ActionType != EnmLSActionType.JUMP)
+            {
+                var a = AgentActionFactory.Create(EnmLSActionType.JUMP);
+                agent.AddAction(a);
+                isRecordJump = false;
+            }
+        
+            if (recordJumpFrame <= 0)
+            {
+                isRecordJump = false;
+            }
         }
     }
 }

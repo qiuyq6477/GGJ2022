@@ -150,7 +150,7 @@ public class AgentProfile : ScriptableObject
     [Serializable]
     public class AnimStateConf
     {
-        //public string name;
+        public string name;
         
         /// <summary>
         /// 通用参数

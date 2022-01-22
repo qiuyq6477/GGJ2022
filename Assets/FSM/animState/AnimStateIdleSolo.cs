@@ -34,7 +34,6 @@ public class AnimStateIdleSolo : AnimStateDefault
 
     public override void OnDeactivate()
     {
-        Debug.Log("idle Exit");
         base.OnDeactivate();
     }
 

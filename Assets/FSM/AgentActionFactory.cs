@@ -37,6 +37,9 @@ public static class AgentActionFactory
                 case EnmLSActionType.JUMP:
                     a = new AgentActionJump();
                     break;
+                case EnmLSActionType.CLIMB:
+                    a = new AgentActionClimb();
+                    break;
                 default:
                     Debug.LogError("no AgentAction to create, type: " + type);
                     return null;

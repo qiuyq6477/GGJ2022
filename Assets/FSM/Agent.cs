@@ -16,12 +16,12 @@ public class Agent : MonoBehaviour
     [NonSerialized] public Agent Owner;
 
     [NonSerialized] public AgentBlackBoard BlackBoard = new AgentBlackBoard();
-    [NonSerialized] public Rigidbody Rigidbody;
+    [NonSerialized] public Rigidbody2D Rigidbody;
 
 
     private void Awake()
     {
-        Rigidbody = GetComponent<Rigidbody>();
+        Rigidbody = GetComponent<Rigidbody2D>();
     }
 
 

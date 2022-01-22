@@ -2,9 +2,9 @@ using System;
 using FSM;
 using UnityEngine;
 
-public class AnimStateMoveSolo : AnimStateDefault
+public class AnimStateClimbSolo : AnimStateDefault
 {
-    public AnimStateMoveSolo(Animator animator, Agent agent, AnimFSM layer, EnmLSActionType type) : base(animator,
+    public AnimStateClimbSolo(Animator animator, Agent agent, AnimFSM layer, EnmLSActionType type) : base(animator,
         agent,
         layer, type)
     {
@@ -13,10 +13,9 @@ public class AnimStateMoveSolo : AnimStateDefault
 
     public override bool HandleNewAction(AgentAction action)
     {
-        if (action.Type == EnmLSActionType.MOVE ||
-            action.Type == EnmLSActionType.IDLE)
+        if (action.Type == EnmLSActionType.JUMP)
         {
-            return true;
+            return false;
         }
 
 
@@ -26,7 +25,7 @@ public class AnimStateMoveSolo : AnimStateDefault
     public override void OnActivate(AgentAction action)
     {
         base.OnActivate(action);
-        Debug.Log("move Enter");
+        rigidbody.useGravity = false;
     }
 
 
@@ -35,9 +34,9 @@ public class AnimStateMoveSolo : AnimStateDefault
     /// </summary>
     protected override void FixedUpdate()
     {
-        if (Math.Abs(Owner.BlackBoard.InputHorizontal) > 0)
+        if (Owner.BlackBoard.OnLadder)
         {
-            transform.position += Vector3.right * Owner.BlackBoard.InputHorizontal * Time.deltaTime * 3;
+            transform.position += Owner.BlackBoard.InputDir * (Time.deltaTime * 1);
         }
         else
         {
@@ -49,5 +48,6 @@ public class AnimStateMoveSolo : AnimStateDefault
     public override void OnDeactivate()
     {
         base.OnDeactivate();
+        rigidbody.useGravity = true;
     }
 }

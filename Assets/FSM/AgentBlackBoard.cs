@@ -18,8 +18,12 @@ using UnityEngine;
 
 public class AgentBlackBoard : MonoBehaviour
 {
-    public Vector2 InputDir = Vector2.zero;
+    public Vector3 InputDir = Vector3.zero;
     public float InputHorizontal = 0;
+    //是否在地面
     public bool OnGround;
+    
+    //是否在梯子上
+    public bool OnLadder;
 
 }

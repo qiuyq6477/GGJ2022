@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,38 +7,43 @@ using UnityEngine;
 public class AgentDecterComponent : MonoBehaviour
 {
     private Agent owner;
-    private Collider2D collider;
 
     // Start is called before the first frame update
     void Start()
     {
         owner = GetComponent<Agent>();
-        collider = GetComponent<Collider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
         owner.BlackBoard.OnGround = false;
-        RaycastHit[] hit = Physics.RaycastAll(transform.position, Vector2.down, 0.2f);
+
+        RaycastHit2D[] hit =
+            Physics2D.RaycastAll(transform.position, Vector3.down, 0.5f, 1 << LayerMask.NameToLayer("Floor"));
+
         if (hit.Length > 0)
         {
-            for (int i = 0; i < hit.Length; i++)
-            {
-                if (hit[i].collider.transform == transform)
-                {
-                    continue;
-                }
-
-                // if (hit[i].collider 是地面)
-                // {
-
-                owner.BlackBoard.OnGround = true;
-                break;
-
-
-                // }
-            }
+            Debug.Log("在地面");
+            owner.BlackBoard.OnGround = true;
         }
+    }
+
+    private void OnTriggerStay2D(Collider2D other)
+    {
+        //如果是梯子
+        // if (other)
+        // {
+        //     owner.BlackBoard.OnLadder = true;
+        // }
+    }
+    
+    private void OnTriggerExit2D(Collider2D other)
+    {
+        //如果是梯子
+        // if (other)
+        // {
+        //     owner.BlackBoard.OnLadder = false;
+        // }
     }
 }

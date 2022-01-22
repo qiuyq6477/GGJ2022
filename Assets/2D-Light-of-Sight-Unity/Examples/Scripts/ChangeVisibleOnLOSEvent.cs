@@ -23,7 +23,7 @@ public class ChangeVisibleOnLOSEvent : MonoBehaviour
         OnNotVisible();
     }
 
-    void OnVisible()
+    public void OnVisible()
     {
         if (_rigidbody2D)
         {
@@ -41,7 +41,7 @@ public class ChangeVisibleOnLOSEvent : MonoBehaviour
         }
     }
 
-    void OnNotVisible()
+    public void OnNotVisible()
     {
         if (_rigidbody2D)
         {
