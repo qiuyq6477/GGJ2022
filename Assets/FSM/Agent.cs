@@ -17,11 +17,13 @@ public class Agent : MonoBehaviour
 
     [NonSerialized] public AgentBlackBoard BlackBoard = new AgentBlackBoard();
     [NonSerialized] public Rigidbody2D Rigidbody;
+    [NonSerialized] public GrabComponent grabComponent;
 
 
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody2D>();
+        grabComponent = GetComponent<GrabComponent>();
     }
 
 

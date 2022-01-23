@@ -37,7 +37,7 @@ public class AnimStateMoveSolo : AnimStateDefault
     {
         if (Math.Abs(Owner.BlackBoard.InputHorizontal) > 0)
         {
-            transform.position += Vector3.right * Owner.BlackBoard.InputHorizontal * Time.deltaTime * 3;
+            transform.position += Vector3.right * Owner.BlackBoard.InputHorizontal * Time.deltaTime * 5;
         }
         else
         {

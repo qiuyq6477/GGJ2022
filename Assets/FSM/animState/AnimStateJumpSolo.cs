@@ -36,7 +36,7 @@ public class AnimStateJumpSolo : AnimStateDefault
     {
         if (Math.Abs(Owner.BlackBoard.InputHorizontal) > 0)
         {
-            transform.position += Vector3.right * Owner.BlackBoard.InputHorizontal * Time.deltaTime;
+            transform.position += Vector3.right * Owner.BlackBoard.InputHorizontal * Time.deltaTime * 5;
         }
 
         Owner.Rigidbody.velocity =

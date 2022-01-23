@@ -30,11 +30,17 @@ public class inpuas : MonoBehaviour
             agent.AddAction(a);
         }
 
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
             isRecordJump = true;
             recordJumpFrame = 5;
         }
+
+        if (Input.GetKeyDown(KeyCode.J))
+        {
+            agent.grabComponent.TryGrab();
+        }
+
 
         if (agent.BlackBoard.OnLadder && Input.GetKeyDown(KeyCode.W))
         {
@@ -54,7 +60,7 @@ public class inpuas : MonoBehaviour
                 agent.AddAction(a);
                 isRecordJump = false;
             }
-        
+
             if (recordJumpFrame <= 0)
             {
                 isRecordJump = false;
